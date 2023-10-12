@@ -1,6 +1,13 @@
 import { ReactElement, useEffect, useState } from 'react'
 import './App.css'
 
+interface Cat {
+  _id: string
+  name: string
+  age: number
+  breed: string
+}
+
 function App(): ReactElement {
   const [cats, setCats] = useState([])
 
@@ -13,7 +20,7 @@ function App(): ReactElement {
 
   return (
     <>
-      {cats.map((cat) => (
+      {cats.map((cat: Cat) => (
         <div key={cat._id}>
           <div>Nombre: {cat.name}</div>
           <div>Edad: {cat.age}</div>
