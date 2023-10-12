@@ -1,0 +1,69 @@
+version: '3.9'
+
+services:
+  react:
+    build:
+      context: ./front
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+      - nest
+    restart: unless-stopped
+    ports:
+      - 80
+    networks:
+      - fullstack-network
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.fullstack.rule=Host(`fullstack.localhost`)'
+      - 'traefik.http.routers.fullstack.entrypoints=web'
+
+  nest:
+    build:
+      context: ./back
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+    restart: unless-stopped
+    ports:
+      - 3000:3000
+    networks:
+      - fullstack-network
+    environment:
+      - MONGODB=mongodb://db:27017/back
+
+  db:
+    image: mongo:6
+    restart: unless-stopped
+    ports:
+      - 27017:27017
+    environment:
+      MONGODB_DATABASE: back
+    volumes:
+      - back-data:/data/db
+    networks:
+      - fullstack-network
+
+  traefik:
+    image: traefik:latest
+    command:
+      - '--tracing=false'
+      - '--api.insecure=true'
+      - '--providers.docker=true'
+      - '--providers.docker.exposedbydefault=false'
+      - '--entrypoints.web.address=:80'
+    ports:
+      - '80:80'
+      - '8080:8080'
+    volumes:
+      - '/var/run/docker.sock:/var/run/docker.sock:ro'
+    networks:
+      - fullstack-network
+
+networks:
+  fullstack-network:
+
+volumes:
+  back-data:
+   external: true
+     
