@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react'
+import { ReactElement, useEffect, useState } from 'react'
 import './App.css'
 
-function App() {
+function App(): ReactElement {
   const [cats, setCats] = useState([])
 
   useEffect(() => {
@@ -13,7 +13,7 @@ function App() {
 
   return (
     <>
-      {cats.map((cat: any) => (
+      {cats.map((cat) => (
         <div key={cat._id}>
           <div>Nombre: {cat.name}</div>
           <div>Edad: {cat.age}</div>
