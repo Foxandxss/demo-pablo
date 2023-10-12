@@ -1,4 +1,4 @@
-name: Linting
+name: Linting front
 
 on:
   push:
@@ -22,7 +22,9 @@ jobs:
         node-version: '18'
 
     - name: Install dependencies
+      working-directory: front
       run: npm ci
 
     - name: Run lint
+      working-directory: front
       run: npm run lint
