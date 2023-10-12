@@ -13,7 +13,7 @@ function App() {
 
   return (
     <>
-      {cats.map((cat: any) => (
+      {cats.map((cat) => (
         <div key={cat._id}>
           <div>Nombre: {cat.name}</div>
           <div>Edad: {cat.age}</div>
