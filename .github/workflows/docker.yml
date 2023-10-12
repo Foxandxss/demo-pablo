@@ -20,8 +20,14 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Build and push Docker images
+    - name: Build and push back
       run: |
-        docker build . --tag ghcr.io/foxandxss/fullstack:latest
-        docker run ghcr.io/foxandxss/fullstack:latest
-        docker push ghcr.io/foxandxss/fullstack:latest
+        cd back
+        docker build -t ghcr.io/foxandxss/fullstack-back:latest .
+        docker push ghcr.io/foxandxss/fullstack-back:latest
+
+    - name: Build and push front
+      run: |
+        cd front
+        docker build -t ghcr.io/foxandxss/fullstack-front:latest .
+        docker push ghcr.io/foxandxss/fullstack-front:latest
