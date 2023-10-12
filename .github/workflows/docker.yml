@@ -23,11 +23,11 @@ jobs:
     - name: Build and push back
       run: |
         cd back
-        docker build -t ghcr.io/foxandxss/fullstack-back:latest .
-        docker push ghcr.io/foxandxss/fullstack-back:latest
+        docker build -t ghcr.io/foxandxss/demo-pablo-back:latest .
+        docker push ghcr.io/foxandxss/demo-pablo-back:latest
 
     - name: Build and push front
       run: |
         cd front
-        docker build -t ghcr.io/foxandxss/fullstack-front:latest .
-        docker push ghcr.io/foxandxss/fullstack-front:latest
+        docker build -t ghcr.io/foxandxss/demo-pablo-front:latest .
+        docker push ghcr.io/foxandxss/demo-pablo-front:latest
