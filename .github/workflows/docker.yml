@@ -1,0 +1,27 @@
+name: Publish Docker images to GHCR
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out the repo
+      uses: actions/checkout@v2
+
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v1
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Build and push Docker images
+      run: |
+        docker-compose build
+        docker images | grep fullstack | awk '{print $3}' | xargs -I {} docker tag {} ghcr.io/foxandxss/fullstack:latest
+        docker push ghcr.io/foxandxss/fullstack:latest
