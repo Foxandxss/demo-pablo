@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react'
+import { ReactElement, useEffect, useState } from 'react'
 import './App.css'
 
-function App() {
+function App(): ReactElement {
   const [cats, setCats] = useState([])
 
   useEffect(() => {
